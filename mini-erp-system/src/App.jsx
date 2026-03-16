@@ -9,6 +9,9 @@ import TeacherLayout from './PAGES/Teacher/TeacherLayout'
 import TeacherDashboard from './PAGES/Teacher/TeacherDashboard'
 import Assignments from './PAGES/Teacher/Assignments'
 import Attendance from './PAGES/Teacher/Attendance'
+import StudentLayout from './PAGES/Student/StudentLayout'
+import StudentDashboard from './PAGES/Student/StudentDashboard'
+import StudentResult from './PAGES/Student/StudentResult'
 
 const App = () => {
   //   useEffect(() => {
@@ -30,10 +33,11 @@ const App = () => {
             <Route path='teacherassign' element={<Assignments/>}/>
             <Route path='teacherattn' element={<Attendance/>}/>
          </Route>
-         <Route path='/teacher' element={<TeacherLayout/>}>
-            <Route index element={<TeacherDashboard/>}/>
-            <Route path='teacherassign' element={<Assignments/>}/>
-            <Route path='teacherattn' element={<Attendance/>}/>
+         <Route path='/student' element={<StudentLayout/>}>
+            <Route index element={<StudentDashboard/>}/>
+            <Route path='stuassign' element={<Assignments/>}/>
+            <Route path='stuattn' element={<Attendance/>}/>
+            <Route path='sturesult' element={<StudentResult/>}/>
          </Route>
       </Routes>
     </div>
