@@ -12,36 +12,47 @@ import Attendance from './PAGES/Teacher/Attendance'
 import StudentLayout from './PAGES/Student/StudentLayout'
 import StudentDashboard from './PAGES/Student/StudentDashboard'
 import StudentResult from './PAGES/Student/StudentResult'
+import StudentAssignment from './PAGES/Student/StudentAssignment'
+import StudentAttendence from './PAGES/Student/StudentAttendence'
+
+import Hero from './Components/Hero'
+import Login from './Components/Login'
 
 const App = () => {
-  //   useEffect(() => {
-  //   localStorage.clear();
-  // }, []);
+   //   useEffect(() => {
+   //   localStorage.clear();
+   // }, []);
 
-  return (
-    <div>
-      <p></p>
-      <Routes>
-         <Route path='/admin' element={<AdminLayout/>}>
-            <Route index element={<AdminDashboard/>}/>
-            <Route path='studentmng' element={<StudentManagement/>}/>
-            <Route path='teachermng' element={<TeacherManagement/>}/>
-            <Route path='coursemng' element={<CourseManagement/>}/>
-         </Route>
-         <Route path='/teacher' element={<TeacherLayout/>}>
-            <Route index element={<TeacherDashboard/>}/>
-            <Route path='teacherassign' element={<Assignments/>}/>
-            <Route path='teacherattn' element={<Attendance/>}/>
-         </Route>
-         <Route path='/student' element={<StudentLayout/>}>
-            <Route index element={<StudentDashboard/>}/>
-            <Route path='stuassign' element={<Assignments/>}/>
-            <Route path='stuattn' element={<Attendance/>}/>
-            <Route path='sturesult' element={<StudentResult/>}/>
-         </Route>
-      </Routes>
-    </div>
-  )
+   return (
+      <div>
+         <p></p>
+         <Routes>
+            <Route path='/' element={<Hero />} />
+            <Route path='/login' element={<Login />} />
+
+            <Route path='/admin' element={<AdminLayout />}>
+               <Route index element={<AdminDashboard />} />
+               <Route path='studentmng' element={<StudentManagement />} />
+               <Route path='teachermng' element={<TeacherManagement />} />
+               <Route path='coursemng' element={<CourseManagement />} />
+            </Route>
+
+            <Route path='/teacher' element={<TeacherLayout />}>
+               <Route index element={<TeacherDashboard />} />
+               <Route path='teacherassign' element={<Assignments />} />
+               <Route path='teacherattn' element={<Attendance />} />
+            </Route>
+
+            <Route path='/student' element={<StudentLayout />}>
+               <Route index element={<StudentDashboard />} />
+               <Route path='stuassign' element={<StudentAssignment />} />
+               <Route path='stuattn' element={<StudentAttendence />} />
+               <Route path='sturesult' element={<StudentResult />} />
+            </Route>
+            
+         </Routes>
+      </div>
+   )
 }
 
 export default App

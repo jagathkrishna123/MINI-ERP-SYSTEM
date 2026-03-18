@@ -9,52 +9,53 @@ const Assignments = () => {
 
   const [departments, setDepartments] = useState([]);
   const [students, setStudents] = useState([]);
+  const [teacher, setTeacher] = useState(null);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [deptId, setDeptId] = useState("");
-  const [courseId, setCourseId] = useState("");
   const [studentId, setStudentId] = useState("");
   const [dueDate, setDueDate] = useState("");
 
   useEffect(() => {
     const dept = JSON.parse(localStorage.getItem("departments")) || [];
     const stud = JSON.parse(localStorage.getItem("students")) || [];
+    const authUser = JSON.parse(localStorage.getItem("authenticatedUser"));
 
     setDepartments(dept);
     setStudents(stud);
+    setTeacher(authUser);
   }, []);
 
   useEffect(() => {
     localStorage.setItem("assignments", JSON.stringify(assignments));
   }, [assignments]);
 
-  const selectedDept = departments.find(d => d.id === Number(deptId));
+  const teacherDept = departments.find(d => d.id === teacher?.departmentId);
+  const teacherCourse = teacherDept?.courses.find(c => c.id === teacher?.courseId);
 
   const filteredStudents = students.filter(
-    s => s.departmentId === Number(deptId) && s.courseId === Number(courseId)
+    s => s.departmentId === teacher?.departmentId && s.courseId === teacher?.courseId
   );
 
   const handleAddAssignment = () => {
 
-    if (!title || !description || !deptId || !courseId || !studentId) return;
+    if (!title || !description || !teacher?.departmentId || !teacher?.courseId || !studentId) return;
 
     const newAssignment = {
       id: Date.now(),
       title,
       description,
-      departmentId: Number(deptId),
-      courseId: Number(courseId),
+      departmentId: teacher.departmentId,
+      courseId: teacher.courseId,
       studentId: Number(studentId),
-      dueDate
+      dueDate,
+      status: "pending"
     };
 
     setAssignments([...assignments, newAssignment]);
 
     setTitle("");
     setDescription("");
-    setDeptId("");
-    setCourseId("");
     setStudentId("");
     setDueDate("");
   };
@@ -90,36 +91,17 @@ const Assignments = () => {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <select
-          className="border p-2 rounded"
-          value={deptId}
-          onChange={(e) => {
-            setDeptId(e.target.value);
-            setCourseId("");
-          }}
-        >
-          <option value="">Select Department</option>
-
-          {departments.map(d => (
-            <option key={d.id} value={d.id}>
-              {d.name}
-            </option>
-          ))}
-        </select>
-
-        <select
-          className="border p-2 rounded"
-          value={courseId}
-          onChange={(e) => setCourseId(e.target.value)}
-        >
-          <option value="">Select Course</option>
-
-          {selectedDept?.courses.map(c => (
-            <option key={c.id} value={c.id}>
-              {c.name}
-            </option>
-          ))}
-        </select>
+        {/* Display Dept and Course instead of Select */}
+        <div className="flex gap-4 mb-2">
+          <div className="flex-1">
+            <label className="text-xs text-gray-500 block">Department</label>
+            <p className="border p-2 rounded bg-gray-50">{teacherDept?.name || "Loading..."}</p>
+          </div>
+          <div className="flex-1">
+            <label className="text-xs text-gray-500 block">Course</label>
+            <p className="border p-2 rounded bg-gray-50">{teacherCourse?.name || "Loading..."}</p>
+          </div>
+        </div>
 
         <select
           className="border p-2 rounded"
@@ -178,6 +160,10 @@ const Assignments = () => {
 
               <p className="text-sm text-red-500">
                 Due: {a.dueDate}
+              </p>
+
+              <p className={`text-xs font-bold mt-1 ${a.status === 'submitted' ? 'text-green-600' : 'text-orange-500'}`}>
+                Status: {a.status === 'submitted' ? 'Submitted' : 'Pending'}
               </p>
 
             </div>

@@ -9,15 +9,15 @@ const AdminSidebar = () => {
       path: "/admin"
     },
     {
-      name: "Students",
+      name: "Students Management",
       path: "/admin/studentmng"
     },
     {
-      name: "Teachers",
+      name: "Teachers Management",
       path: "/admin/teachermng"
     },
     {
-      name: "Courses",
+      name: "Courses Management",
       path: "/admin/coursemng"
     }
   ];
