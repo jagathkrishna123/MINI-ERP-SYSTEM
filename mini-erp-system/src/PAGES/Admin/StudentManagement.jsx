@@ -30,7 +30,7 @@ const StudentManagement = () => {
 
     if (!name || !email || !rollno || !deptId || !courseId) return;
 
-    if (editId) {
+    if (editId) {    //Check: Edit mode or Add mode
       const updated = students.map((s) =>
         s.id === editId
           ? { ...s, name, email, rollno, departmentId: Number(deptId), courseId: Number(courseId) }

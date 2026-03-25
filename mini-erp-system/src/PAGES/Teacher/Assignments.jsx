@@ -1,3 +1,4 @@
+import { Trash2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 const Assignments = () => {
@@ -25,6 +26,8 @@ const Assignments = () => {
     setStudents(stud);
     setTeacher(authUser);
   }, []);
+
+
 
   useEffect(() => {
     localStorage.setItem("assignments", JSON.stringify(assignments));
@@ -67,6 +70,17 @@ const Assignments = () => {
 
   const getStudentName = (id) =>
     students.find(s => s.id === id)?.name || "";
+
+  // Add this right before the return statement
+  useEffect(() => {
+    console.log("Teacher Dept:", teacherDept);
+    console.log("Teacher Course:", teacherCourse);
+  }, [teacherDept, teacherCourse]);
+
+  useEffect(() => {
+    console.log("Filtered Students Updated:", filteredStudents);
+  }, [filteredStudents]); // This dependency array tells React only to run when this variable changes
+
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
@@ -166,13 +180,28 @@ const Assignments = () => {
                 Status: {a.status === 'submitted' ? 'Submitted' : 'Pending'}
               </p>
 
+              {a.status === 'submitted' && a.answer && (
+                <div className="mt-2 p-2 bg-blue-50 border border-blue-100 rounded text-sm">
+                  <p className="font-semibold text-blue-800">Student Answer:</p>
+                  <p className="text-gray-700">{a.answer}</p>
+                </div>
+              )}
+
             </div>
 
-            <button
+            {/* <button
               onClick={() => handleDelete(a.id)}
               className="bg-red-500 text-white px-3 py-1 rounded"
             >
               Delete
+            </button> */}
+
+             <button
+              onClick={() => handleDelete(a.id)}
+              className="bg-red-500 hover:bg-red-600 text-white p-2 rounded h-fit transition-colors"
+              aria-label="Delete assignment"
+            >
+              <Trash2 size={20} />
             </button>
 
           </div>

@@ -5,6 +5,7 @@ const Login = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  
   const navigate = useNavigate();
 
   const handleLogin = (e) => {

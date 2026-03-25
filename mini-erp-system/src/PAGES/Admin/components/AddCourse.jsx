@@ -10,10 +10,10 @@ export default function AddCourse({ departments, setDepartments }) {
     const updated = departments.map((dept) => {
       if (dept.id === Number(deptId)) {
         return {
-          ...dept,
-          courses: [
-            ...dept.courses,
-            { id: Date.now(), name: courseName }
+          ...dept,                //Copy old department
+          courses: [          //Update only courses
+            ...dept.courses, // old courses
+            { id: Date.now(), name: courseName }  // add new one
           ]
         };
       }
@@ -23,6 +23,10 @@ export default function AddCourse({ departments, setDepartments }) {
     setDepartments(updated);
     setCourseName("");
   };
+
+  //“We use map to loop through departments array and immutably
+  //  update only the selected department by adding a new course
+  //  to its courses array, while keeping other departments unchanged.”
 
   return (
     <div className="mb-6">

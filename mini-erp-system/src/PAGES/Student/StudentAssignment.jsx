@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 const StudentAssignment = () => {
   const [myAssignments, setMyAssignments] = useState([]);
   const [user, setUser] = useState(null);
+  const [answers, setAnswers] = useState({}); // Track answers by assignment ID
 
   useEffect(() => {
     // Get logged in student
@@ -23,8 +24,18 @@ const StudentAssignment = () => {
     // Get all assignments
     const allAssignments = JSON.parse(localStorage.getItem("assignments")) || [];
 
-    // Update the status of the selected assignment
-    const updatedAll = allAssignments.map(a => a.id === id ? { ...a, status: "submitted" } : a);
+    // Get the answer for this assignment
+    const currentAnswer = answers[id] || "";
+
+    if (!currentAnswer.trim()) {
+      alert("Please enter your answer before submitting!");
+      return;
+    }
+
+    // Update the status and answer of the selected assignment
+    const updatedAll = allAssignments.map(a =>
+      a.id === id ? { ...a, status: "submitted", answer: currentAnswer } : a
+    );
 
     // Save back to localStorage
     localStorage.setItem("assignments", JSON.stringify(updatedAll));
@@ -57,13 +68,26 @@ const StudentAssignment = () => {
                 </div>
               </div>
 
-              {a.status !== 'submitted' && (
-                <button
-                  onClick={() => handleStatusUpdate(a.id)}
-                  className="bg-blue-600 text-white px-4 py-2 rounded font-bold hover:bg-blue-700 transition-colors"
-                >
-                  Submit
-                </button>
+              {a.status !== 'submitted' ? (
+                <div className="flex flex-col gap-2 w-1/2">
+                  <textarea
+                    className="border p-2 rounded text-sm h-20"
+                    placeholder="Type your answer here..."
+                    value={answers[a.id] || ""}
+                    onChange={(e) => setAnswers({ ...answers, [a.id]: e.target.value })}
+                  />
+                  <button
+                    onClick={() => handleStatusUpdate(a.id)}
+                    className="bg-blue-600 text-white px-4 py-2 rounded font-bold hover:bg-blue-700 transition-colors self-end"
+                  >
+                    Submit Answer
+                  </button>
+                </div>
+              ) : (
+                <div className="bg-gray-50 p-3 rounded border text-sm w-1/2">
+                  <p className="font-semibold text-gray-500 mb-1">Your Submission:</p>
+                  <p className="text-gray-700">{a.answer}</p>
+                </div>
               )}
             </div>
           ))

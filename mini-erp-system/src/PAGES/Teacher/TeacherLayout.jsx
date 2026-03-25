@@ -6,6 +6,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import TeacherSidebar from "./TeacherSidebar";
 
 const TeacherLayout = () => {
+  
   const user = JSON.parse(localStorage.getItem("authenticatedUser")) || { name: "Teacher" };
   const navigate = useNavigate();
 

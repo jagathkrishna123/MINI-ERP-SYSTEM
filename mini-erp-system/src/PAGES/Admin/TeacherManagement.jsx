@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 const TeacherManagement = () => {
+  
 const [teachers, setTeachers] = useState(() => {
   const data = localStorage.getItem("teachers");
   return data ? JSON.parse(data) : [];
-});  const [departments, setDepartments] = useState([]);
+});  
+
+const [departments, setDepartments] = useState([]);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,6 +28,7 @@ const [teachers, setTeachers] = useState(() => {
 useEffect(() => {
   localStorage.setItem("teachers", JSON.stringify(teachers));
 }, [teachers]);
+
   const selectedDept = departments.find((d) => d.id === Number(deptId));
 
   const handleSubmit = () => {
@@ -114,6 +118,8 @@ useEffect(() => {
             </option>
           ))}
         </select>
+
+        
 
         {/* Course */}
         <select
