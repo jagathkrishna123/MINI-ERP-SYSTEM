@@ -17,8 +17,14 @@ export default function DepartmentList({ departments, onDeleteDepartment }) {
             </button>
           </div>
 
-          <ul className="list-disc ml-5 mt-2">
+          {/* <ul className="list-disc ml-5 mt-2">
             {dept.courses.map((course) => (
+              <li key={course.id}>{course.name}</li>
+            ))}
+          </ul> */}
+
+          <ul className="list-disc ml-5 mt-2">
+            {dept.courses?.map((course) => (
               <li key={course.id}>{course.name}</li>
             ))}
           </ul>

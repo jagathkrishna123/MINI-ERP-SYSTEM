@@ -18,10 +18,10 @@ const AdminDashboard = () => {
 
   }, []);
 
-  const totalCourses = departments.reduce(
-    (acc, dept) => acc + dept.courses.length,
-    0
-  );
+const totalCourses = departments.reduce(
+  (acc, dept) => acc + (dept.courses ? dept.courses.length : 0),
+  0
+);
 
   return (
     <div className="p-6">
