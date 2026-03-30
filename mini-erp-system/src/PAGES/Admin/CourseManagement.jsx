@@ -5,19 +5,54 @@ import DepartmentList from "./components/DepartmentList";
 
 
 export default function CourseManagement() {
-const [departments, setDepartments] = useState(() => {
-  const data = localStorage.getItem("departments");
-  return data ? JSON.parse(data) : [];
-});
+  const [departments, setDepartments] = useState(() => {
+    const data = localStorage.getItem("departments");
+    return data ? JSON.parse(data) : [];
+  });
 
-useEffect(() => {
-  localStorage.setItem("departments", JSON.stringify(departments));
-}, [departments]);
+  useEffect(() => {
+    localStorage.setItem("departments", JSON.stringify(departments));
+  }, [departments]);
 
-const handleDeleteDepartment = (id) => {
-  const updated = departments.filter((dept) => dept.id !== id);
-  setDepartments(updated);
-};
+  const handleDeleteDepartment = (id) => {
+    const updated = departments.filter((dept) => dept.id !== id);
+    setDepartments(updated);
+  };
+
+  const handleEditDepartment = (id, newName) => {
+    const updated = departments.map((dept) =>
+      dept.id === id ? { ...dept, name: newName } : dept
+    );
+    setDepartments(updated);
+  };
+
+  const handleEditCourse = (deptId, courseId, newCourseName) => {
+    const updated = departments.map((dept) => {
+      if (dept.id === deptId) {
+        return {
+          ...dept,
+          courses: dept.courses.map((c) =>
+            c.id === courseId ? { ...c, name: newCourseName } : c
+          ),
+        };
+      }
+      return dept;
+    });
+    setDepartments(updated);
+  };
+
+  const handleDeleteCourse = (deptId, courseId) => {
+    const updated = departments.map((dept) => {
+      if (dept.id === deptId) {
+        return {
+          ...dept,
+          courses: dept.courses.filter((c) => c.id !== courseId),
+        };
+      }
+      return dept;
+    });
+    setDepartments(updated);
+  };
 
 
   return (
@@ -28,7 +63,13 @@ const handleDeleteDepartment = (id) => {
 
       <AddCourse departments={departments} setDepartments={setDepartments} />
 
-      <DepartmentList departments={departments}  onDeleteDepartment={handleDeleteDepartment} />
+      <DepartmentList
+        departments={departments}
+        onDeleteDepartment={handleDeleteDepartment}
+        onEditDepartment={handleEditDepartment}
+        onEditCourse={handleEditCourse}
+        onDeleteCourse={handleDeleteCourse}
+      />
     </div>
   );
 }

@@ -15,8 +15,8 @@ const TeacherSidebar = () => {
       icon: Users,
     },
     {
-      name: "Attendance",
-      path: "/teacher/teacherattn",
+      name: "Notice Board",
+      path: "/teacher/teachernotice",
       icon: ClipboardCheck,
     },
   ];

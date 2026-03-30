@@ -17,8 +17,8 @@ const StudentSidebar = () => {
       icon: Users,
     },
     {
-      name: "Attendance",
-      path: "/student/stuattn",
+      name: "Notice Board",
+      path: "/student/stunotice",
       icon: ClipboardCheck,
     },
   ];

@@ -33,7 +33,7 @@ const Login = () => {
     }
 
     // fallback for admin (simple check if user wants it, or just generic error)
-    if (name === "admin" && email === "admin@test.com") {
+    if (name === "admin" && email === "admin@gmail.com") {
       localStorage.setItem("authenticatedUser", JSON.stringify({ name: "Admin", email: "admin@test.com", role: "admin" }));
       navigate("/admin");
       return;

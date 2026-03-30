@@ -17,6 +17,9 @@ import StudentAttendence from './PAGES/Student/StudentAttendence'
 
 import Hero from './Components/Hero'
 import Login from './Components/Login'
+import StudentNoticeBoard from './PAGES/Student/StudentNoticeBoard'
+import TeacherNoticeboard from './PAGES/Teacher/TeacherNoticeboard'
+import Announcements from './PAGES/Admin/Announcements'
 
 const App = () => {
    //   useEffect(() => {
@@ -35,18 +38,20 @@ const App = () => {
                <Route path='studentmng' element={<StudentManagement />} />
                <Route path='teachermng' element={<TeacherManagement />} />
                <Route path='coursemng' element={<CourseManagement />} />
+               <Route path='announce' element={<Announcements />} />
+
             </Route>
 
             <Route path='/teacher' element={<TeacherLayout />}>
                <Route index element={<TeacherDashboard />} />
                <Route path='teacherassign' element={<Assignments />} />
-               <Route path='teacherattn' element={<Attendance />} />
+               <Route path='teachernotice' element={<TeacherNoticeboard />} />
             </Route>
 
             <Route path='/student' element={<StudentLayout />}>
                <Route index element={<StudentDashboard />} />
                <Route path='stuassign' element={<StudentAssignment />} />
-               <Route path='stuattn' element={<StudentAttendence />} />
+               <Route path='stunotice' element={<StudentNoticeBoard/>} />
                <Route path='sturesult' element={<StudentResult />} />
             </Route>
             

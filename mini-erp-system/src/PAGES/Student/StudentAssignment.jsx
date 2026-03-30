@@ -84,9 +84,18 @@ const StudentAssignment = () => {
                   </button>
                 </div>
               ) : (
-                <div className="bg-gray-50 p-3 rounded border text-sm w-1/2">
-                  <p className="font-semibold text-gray-500 mb-1">Your Submission:</p>
-                  <p className="text-gray-700">{a.answer}</p>
+                <div className="bg-gray-50 p-3 rounded border text-sm w-1/2 flex justify-between items-start">
+                  <div>
+                    <p className="font-semibold text-gray-500 mb-1">Your Submission:</p>
+                    <p className="text-gray-700">{a.answer}</p>
+                  </div>
+                  {a.mark && (
+                    <div className="bg-blue-600 text-white px-3 py-2 rounded-lg shadow-sm text-center">
+                      <p className="text-[10px] uppercase font-bold opacity-80">Mark</p>
+                      <p className="text-xl font-bold leading-tight">{a.mark}</p>
+                      <p className="text-[10px] opacity-80">/100</p>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

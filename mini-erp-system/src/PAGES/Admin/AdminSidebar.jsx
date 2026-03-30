@@ -19,6 +19,10 @@ const AdminSidebar = () => {
     {
       name: "Courses Management",
       path: "/admin/coursemng"
+    },
+    {
+      name: "Announcements",
+      path: "/admin/announce"
     }
   ];
 
