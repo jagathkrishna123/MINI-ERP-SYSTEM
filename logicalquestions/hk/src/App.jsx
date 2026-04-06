@@ -7,6 +7,7 @@ import Task5 from './TASKS/Task5'
 import Task6 from './TASKS/Task6'
 import Task7 from './TASKS/Task7'
 import Task8 from './TASKS/Task8'
+import Task10 from './TASKS/Task10'
 
 const App = () => {
   return (
@@ -49,6 +50,10 @@ const App = () => {
       <section className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
         <h2 className="text-lg font-semibold mb-4 text-blue-600">Task 7: Todo with Delete</h2>
         <Task8 />
+      </section>
+      <section className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h2 className="text-lg font-semibold mb-4 text-blue-600">Task 7: Todo with Delete</h2>
+        <Task10 />
       </section>
     </div>
   )

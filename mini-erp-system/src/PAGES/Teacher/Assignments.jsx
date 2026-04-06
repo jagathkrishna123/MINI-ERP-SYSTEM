@@ -38,7 +38,7 @@ const Assignments = () => {
   const teacherCourse = teacherDept?.courses.find(c => c.id === teacher?.courseId);
 
   const filteredStudents = students.filter(
-    s => s.departmentId === teacher?.departmentId && s.courseId === teacher?.courseId
+    s => s.departmentId === teacher?.departmentId
   );
 
   const handleAddAssignment = () => {

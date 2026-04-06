@@ -16,7 +16,6 @@ const StudentManagement = () => {
   const [email, setEmail] = useState("");
   const [rollno, setRollno] = useState("");
   const [deptId, setDeptId] = useState("");
-  const [courseId, setCourseId] = useState("");
 
   const [editId, setEditId] = useState(null);
 
@@ -24,16 +23,22 @@ const StudentManagement = () => {
     localStorage.setItem("students", JSON.stringify(students));
   }, [students]);
 
-  const selectedDept = departments.find(d => d.id === Number(deptId));
+
 
   const handleSubmit = () => {
-
-    if (!name || !email || !rollno || !deptId || !courseId) return;
+    // courseId is no longer a constraint
+    if (!name || !email || !rollno || !deptId) return;
 
     if (editId) {    //Check: Edit mode or Add mode
       const updated = students.map((s) =>
         s.id === editId
-          ? { ...s, name, email, rollno, departmentId: Number(deptId), courseId: Number(courseId) }
+          ? {
+            ...s,
+            name,
+            email,
+            rollno,
+            departmentId: Number(deptId)
+          }
           : s
       );
       setStudents(updated);
@@ -45,8 +50,7 @@ const StudentManagement = () => {
         name,
         email,
         rollno,
-        departmentId: Number(deptId),
-        courseId: Number(courseId)
+        departmentId: Number(deptId)
       };
 
       setStudents([...students, newStudent]);
@@ -56,7 +60,6 @@ const StudentManagement = () => {
     setEmail("");
     setRollno("");
     setDeptId("");
-    setCourseId("");
   };
 
   const handleDelete = (id) => {
@@ -69,17 +72,12 @@ const StudentManagement = () => {
     setEmail(student.email);
     setRollno(student.rollno);
     setDeptId(student.departmentId);
-    setCourseId(student.courseId);
     setEditId(student.id);
   };
 
   const getDeptName = (id) =>
     departments.find((d) => d.id === id)?.name || "";
 
-  const getCourseName = (deptId, courseId) => {
-    const dept = departments.find((d) => d.id === deptId);
-    return dept?.courses.find((c) => c.id === courseId)?.name || "";
-  };
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
@@ -116,32 +114,13 @@ const StudentManagement = () => {
         <select
           className="border p-2 rounded"
           value={deptId}
-          onChange={(e) => {
-            setDeptId(e.target.value);
-            setCourseId("");
-          }}
+          onChange={(e) => setDeptId(e.target.value)}
         >
           <option value="">Select Department</option>
 
           {departments.map((d) => (
             <option key={d.id} value={d.id}>
               {d.name}
-            </option>
-          ))}
-        </select>
-
-        {/* Course */}
-
-        <select
-          className="border p-2 rounded"
-          value={courseId}
-          onChange={(e) => setCourseId(e.target.value)}
-        >
-          <option value="">Select Course</option>
-
-          {selectedDept?.courses.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.name}
             </option>
           ))}
         </select>
@@ -172,8 +151,7 @@ const StudentManagement = () => {
               <p className="text-sm">Roll No: {s.rollno}</p>
 
               <p className="text-sm text-gray-500">
-                {getDeptName(s.departmentId)} -{" "}
-                {getCourseName(s.departmentId, s.courseId)}
+                {getDeptName(s.departmentId)}
               </p>
             </div>
 
