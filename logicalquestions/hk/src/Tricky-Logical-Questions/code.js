@@ -8,8 +8,11 @@ console.log("10" + "5" - "2"); // 103
 console.log(true == "1"); // true
 console.log(false == "0"); // true
 console.log([] == ""); // true
+
 console.log([] == false); // true
+
 console.log([] === false); // false
+
 console.log([] + 1);  // "1"
 console.log([] == []); // false 
 console.log([] === []); // false
@@ -89,3 +92,27 @@ console.log("D");
 // B
 // C
 //...........................................
+
+
+var a = [10,11,12,13,14];
+
+function print(b, ...a) {
+  console.log(a);
+}
+
+print(8, 9, 10, 11, 12);
+
+//Output: [9, 10, 11, 12]
+
+//..................................................
+
+const a = {
+  age: 23,
+};
+
+b = a;
+b.age = 100;
+
+console.log(a.age);
+
+//Output: 100
